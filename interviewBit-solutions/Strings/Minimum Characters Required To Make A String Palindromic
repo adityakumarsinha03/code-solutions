@@ -1,0 +1,47 @@
+/*
+
+You are given a string. The only operation allowed is to insert characters in the beginning of the string. 
+How many minimum characters are needed to be inserted to make the string a palindrome string
+
+Example:
+Input: ABC
+Output: 2
+Input: AACECAAAA
+Output: 2
+
+*/
+
+Solution:
+
+int Solution::solve(string s) {
+    
+    int n = s.length();
+    string y = s;
+    reverse(y.begin(), y.end());
+    string t = "";
+    t = s + "$" + y;
+    int m = t.length();
+    vector<int>a(m);
+    
+    a[0] = 0;
+    int  i = 1;
+    int len = 0;
+    while(i<m){
+        if(t[i] == t[len]){
+            len++;
+            a[i] = len;
+            i++;
+        }
+        else{
+            if(len != 0){
+                len = a[len-1];
+            }
+            else{
+                a[i] = 0;
+                i++;
+            }
+        }
+    }
+    int ans = n-a[a.size()-1];
+    return ans;
+}

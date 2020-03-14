@@ -1,0 +1,57 @@
+/*
+
+Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+Example:
+
+"A man, a plan, a canal: Panama" is a palindrome.
+
+"race a car" is not a palindrome.
+
+Return 0 / 1 ( 0 for false, 1 for true ) for this problem
+
+*/
+
+Solution:
+
+int Solution::isPalindrome(string a) {
+    
+    int n = a.length();
+    int i = 0; 
+    int x, z;
+    int j = n-1;
+    while(i<j){
+        while(a[i] == ' '){
+            i++;
+        }
+        while(a[j] == ' '){
+            j--;;
+        }
+        x = (int)a[i];
+        z = (int)a[j];
+        if((x>=48 && x<=57) || (x>=65 && x<=90) || (x>=97 && x<=122)){
+            if((z>=48 && z<=57) || (z>=65 && z<=90) || (z>=97 && z<=122)){
+                if((x>=65 && x<=90)){
+                    x = x+32;
+                }
+                if((z>=65 && z<=90)){
+                    z = z+32;
+                }
+                if(x != z){
+                    return 0;
+                }
+                else{
+                    i++;
+                    j--;
+                }
+            }  
+            else{
+                j--;
+            }
+        }
+        else{
+            i++;
+        }
+    }
+    return 1;
+}

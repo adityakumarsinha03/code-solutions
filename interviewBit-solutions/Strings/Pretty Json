@@ -1,0 +1,120 @@
+/*
+
+Pretty print a json object using proper indentation.
+
+Every inner brace should increase one indentation to the following lines.
+Every close brace should decrease one indentation to the same line and the following lines.
+The indents can be increased with an additional ‘\t’
+Example 1:
+
+Input : {A:"B",C:{D:"E",F:{G:"H",I:"J"}}}
+Output : 
+{ 
+    A:"B",
+    C: 
+    { 
+        D:"E",
+        F: 
+        { 
+            G:"H",
+            I:"J"
+        } 
+    }     
+}
+Example 2:
+
+Input : ["foo", {"bar":["baz",null,1.0,2]}]
+Output : 
+[
+    "foo", 
+    {
+        "bar":
+        [
+            "baz", 
+            null, 
+            1.0, 
+            2
+        ]
+    }
+]
+[] and {} are only acceptable braces in this case.
+Assume for this problem that space characters can be done away with.
+Your solution should return a list of strings, where each entry corresponds to a single line. 
+The strings should not have “\n” character in them.
+
+*/
+
+Solution:
+
+vector<string> Solution::prettyJSON(string s){
+    
+    vector<string>a;
+    
+    int b = 0;
+    int i = 0;
+    while(s[i] != '\0'){
+        while(s[i] == ' '){
+            i++;
+        }
+        string t = "";
+        
+        if(s[i] == '{' || s[i] == '[' || s[i] == '('){
+            for(int j = 0; j<b; j++){
+                t = t + '\t';
+            }
+            t = t + s[i];
+            if(t.length() > 0){
+                a.push_back(t);
+            }
+            b++;
+            i++;
+        }
+        while(s[i] == ' '){
+            i++;
+        }
+        t = "";
+        if(s[i] != '{' && s[i] != '[' && s[i] != '(' && s[i] != '}' && s[i] != ']' && s[i] != ')'){
+            for(int j = 0; j<b; j++){
+                t = t + '\t';
+            }
+        }
+        
+        while(s[i] != '{' && s[i] != '[' && s[i] != '(' && s[i] != '}' && s[i] != ']' && s[i] != ')'){
+            if(s[i] == ' '){
+                i++;
+            }
+            else if(s[i] != ','){
+                t = t + s[i];
+                i++;    
+            }
+            else{
+                t = t+s[i];
+                i++;
+                break;
+            }
+        }
+        if(t.length() > 0){
+            a.push_back(t);
+        }
+        while(s[i] == ' '){
+            i++;
+        }
+        t = "";
+        if(s[i] == '}' || s[i] == ']' || s[i] == ')'){
+            b--;
+            for(int j = 0; j<b; j++){
+                t = t + '\t';
+            }
+            t = t+ s[i];
+            i++;
+            if(s[i] == ','){
+                t = t+s[i];
+                i++;
+            }
+            if(t.length() > 0){
+                a.push_back(t);
+            }
+        }
+    }
+    return a;
+}

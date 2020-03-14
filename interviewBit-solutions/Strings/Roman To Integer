@@ -1,0 +1,73 @@
+/*
+
+Given a roman numeral, convert it to an integer.
+
+Input is guaranteed to be within the range from 1 to 3999.
+
+Read more details about roman numerals at Roman Numeric System
+
+Example :
+
+Input : "XIV"
+Return : 14
+Input : "XX"
+Output : 20
+
+*/
+
+Solution:
+
+int ch(char x){
+    
+    if(x == 'I'){
+        return 1;
+    }
+    else if(x == 'V'){
+        return 5;
+    }
+    else if(x == 'X'){
+        return 10;
+    }
+    else if(x == 'L'){
+        return 50;
+    }
+    else if(x == 'C'){
+        return 100;
+    }
+    else if(x == 'D'){
+        return 500;
+    }
+    else if(x == 'M'){
+        return 1000;
+    }
+}
+
+int Solution::romanToInt(string s){
+    
+    int ans = 0;
+    int i = 0;
+    while(s[i] != '\0'){
+        int g = ch(s[i]);
+        
+        if(s[i+1] != '\0'){
+            int h = ch(s[i+1]);
+            if(g > h){
+                ans = ans + g;
+                i++;
+            }
+            else if(g<h){
+                ans = ans + h-g;
+                i = i+2;
+            }
+            else{
+                ans = ans + g;
+                i++;
+            }    
+        }
+        else{
+            ans = ans+g;
+            i++;
+        }
+    }
+    return ans;
+}

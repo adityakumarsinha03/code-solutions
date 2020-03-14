@@ -1,0 +1,58 @@
+/*
+
+Implement strStr().
+
+ strstr - locate a substring ( needle ) in a string ( haystack ). 
+Try not to use standard library string functions for this question.
+
+Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+ NOTE: Good clarification questions:
+What should be the return value if the needle is empty?
+What if both haystack and needle are empty?
+For the purpose of this problem, assume that the return value should be -1 in both cases.
+
+*/
+
+Solution:
+
+int Solution::strStr(const string &s, const string &pat){
+    
+ // Without Using KMP Algorithm
+ 
+  int lens = s.length();
+	int lenpat = pat.length();
+	if(lens==0 || lenpat == 0){
+	    return -1;
+	}
+	int l, r, k, flag=0, flag2 = 0;
+	int i = 0;
+	while(i<lens-lenpat+1){
+	    if(s[i] == pat[0] && s[i+lenpat-1] == pat[lenpat-1]){
+	        l = i;
+	        r = i+lenpat-1;
+	        flag = 0;
+	        k = 0;
+	       // cout << l << " " << r << endl;
+	        while(k<lenpat){
+	            if(s[l] == pat[k]){
+	                l++;
+	                r--;
+	                k++;
+	            }
+	            else{
+	                flag = 1;
+	                break;
+	            }
+	        }
+	        if(flag == 0){
+	            flag2 = 1;
+	            return i;
+	        }
+	    }
+	    i++;
+	}
+	if(flag2 == 0){
+	    return -1;
+	}
+}

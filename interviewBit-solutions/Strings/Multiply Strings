@@ -1,0 +1,76 @@
+/*
+
+Given two numbers represented as strings, return multiplication of the numbers as a string.
+
+ Note: The numbers can be arbitrarily large and are non-negative.
+Note2: Your answer should not have leading zeroes. For example, 00 is not a valid answer. 
+For example, 
+given strings "12", "10", your answer should be “120”.
+
+NOTE : DO NOT USE BIG INTEGER LIBRARIES ( WHICH ARE AVAILABLE IN JAVA / PYTHON ). 
+We will retroactively disqualify such submissions and the submissions will incur penalties.
+
+*/
+
+Solution:
+
+string Solution::multiply(string s1, string s2){
+    
+    int n1 = s1.length();
+    int n2 = s2.length();
+    string ans = "";
+    if(n1 == 0 || n2 == 0){
+        return ans;
+    }
+    vector<int>a(n1+n2);
+    for(int k = 0; k<n1+n2; k++){
+        a.push_back(0);
+    }
+    int temp;
+    vector<int>d;
+    for(int i = n2-1; i>=0; i--){
+        for(int j = 0; j<n2-1-i; j++){
+            d.push_back(0);
+        }
+        temp = (int)s2[i] - 48;
+        
+        int carry = 0;
+        for(int j = 0; j<n1; j++){
+            int p = (int)s1[n1-1-j] - 48;
+            int u = ((temp*p)) + carry;
+            d.push_back(u%10);
+            carry = ((temp*p)+carry)/10;
+        }
+        if(carry != 0){
+            d.push_back(carry);
+            carry = 0;
+        }
+        int car = 0;
+        for(int j = 0; j<d.size(); j++){
+            int y = ((a[j]+d[j])+ car);
+            a[j] = y%10;
+            car = y/10;
+        }
+        int l = d.size();
+        while(car > 0 && l<a.size()){
+            int z = (a[l]+car); 
+            a[l] = z%10;
+            car = z/10;
+            l++;
+        }
+
+        d.erase(d.begin(), d.end());
+    }
+    reverse(a.begin(), a.end());
+    int g = 0;
+    while(a[g] == 0 && g<a.size()){
+        g++;
+    }
+    for(int i = g; i<a.size(); i++){
+        ans = ans+ to_string(a[i]);
+    }
+    if(ans.length() == 0){
+        ans = ans+to_string(0);
+    }
+    return ans;
+}
