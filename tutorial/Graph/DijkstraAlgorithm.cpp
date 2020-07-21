@@ -1,6 +1,8 @@
 // Dijkstra algorithm is used to 
 // find the minimum distance of all the nodes from the source
 
+// Time Complexity: O(E*log(V))
+
 typedef pair<int, int> PII;
 
 void dijkstra(vector<vector<int>> graph, int src, int n){
