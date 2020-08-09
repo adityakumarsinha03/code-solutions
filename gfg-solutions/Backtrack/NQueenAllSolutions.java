@@ -5,7 +5,7 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-class GFG {
+class NQueenAllSolutions {
     public static ArrayList<ArrayList<Integer> > ans = new ArrayList<ArrayList<Integer> >();
     
     public static boolean isSafe(int board[][], int row, int col, int n){
