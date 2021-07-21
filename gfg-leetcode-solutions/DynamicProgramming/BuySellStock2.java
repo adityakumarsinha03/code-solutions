@@ -2,6 +2,31 @@
 
 class Solution {
 	public int maxProfit(int[] prices) {
+        int n = prices.length;
+        
+        int maxProfit = 0;
+        
+        int portfolio = 0;
+        int buy = 0;
+        for(int i = 0; i<n; i++){
+            if(portfolio==0){
+                if(i+1<n && prices[i]<prices[i+1]){
+                    buy = prices[i];
+                    portfolio++;
+                }
+            } else{
+                if(i+1<n && prices[i+1]>prices[i])
+                    continue;
+                else if(prices[i]>buy){
+                    maxProfit += prices[i]-buy;
+                    portfolio--;
+                }
+            }
+        }
+        return maxProfit;
+    }
+	
+	public int maxProfit(int[] prices) {
 		int n = prices.length;
         if(n <= 0)
             return 0;
